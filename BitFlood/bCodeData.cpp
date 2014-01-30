@@ -8,47 +8,74 @@
 
 #include "bCodeData.h"
 
+#include "bCodeInt.h"
+#include "bCodeList.h"
+#include "bCodeDict.h"
+#include "bCodeString.h"
+
 bCodeData* bCodeData::parse(string *torrent, unsigned int startIndex, unsigned int* endIndex)
 {
     unsigned int i = startIndex + 1;
-    
+	
     switch (torrent->at(i - 1))
     {
         case 'i':
         {
             int value = 0;
-            
+			
             while(torrent->at(i) != 'e')
             {
                 value *= 10;
                 value -= 0x30 - (int)torrent->at(i);
                 i++;
             }
-            
-            *endIndex = i;
-            return NULL;
+			
+			if(endIndex != NULL)
+				*endIndex = i;
+			
+            return new bCodeInt(value);
         }
-        break;
+			break;
             
         case 'l':
         {
+			vector<bCodeData*>* values = new vector<bCodeData*>();
+			
             while (torrent->at(i) != 'e')
             {
                 unsigned int e = 0;
-                parse(torrent, i, &e);
+                values->push_back(parse(torrent, i, &e));
                 i = e + 1;
             }
-            *endIndex = i;
-            return NULL;
+            
+			if(endIndex != NULL)
+				*endIndex = i;
+			
+            return new bCodeList(values);
         }
-        break;
+			break;
             
         case 'd':
         {
-            *endIndex = i;
-            return NULL;
+			map<string, bCodeData*>* values = new map<string, bCodeData*>();
+			
+			while (torrent->at(i) != 'e')
+            {
+                unsigned int e = 0;
+                bCodeString* keyContainer = (bCodeString*)parse(torrent, i, &e);
+				string key = keyContainer->getValue();
+				delete keyContainer;
+                i = e + 1;
+				(*values)[key] = parse(torrent, i, &e);
+				i = e + 1;
+            }
+			
+			if(endIndex != NULL)
+				*endIndex = i;
+			
+            return new bCodeDictionary(values);
         }
-        break;
+			break;
             
         case '0':
         case '1':
@@ -70,19 +97,61 @@ bCodeData* bCodeData::parse(string *torrent, unsigned int startIndex, unsigned i
                 length -= 0x30 - (int)torrent->at(i);
                 i++;
             }
-            
             i++;
-            string data = torrent->substr(i,length);
             
-            *endIndex = i + (length - 1);
-            return NULL;
+			if(endIndex != NULL)
+				*endIndex = i + (length - 1);
+			
+            return new bCodeString(string(torrent->substr(i,length)));
         }
-        break;
+			break;
             
         default:
         {
             throw new exception();
         }
-        break;
+			break;
     }
+}
+
+bCodeData* bCodeData::forKey(const char key[])
+{
+	if(containerType == bType::Dictionary)
+	{
+		bCodeDictionary* alsoThis = (bCodeDictionary*)this;
+		return alsoThis->at(key);
+	}
+	else
+		return NULL;
+}
+
+bCodeData* bCodeData::atIndex(unsigned int index)
+{
+	if(containerType == bType::List)
+	{
+		bCodeList* alsoThis = (bCodeList*)this;
+		return alsoThis->at(index);
+	}
+	else
+		return NULL;
+}
+std::string bCodeData::toString()
+{
+	if(containerType == bType::String)
+	{
+		bCodeString* alsoThis = (bCodeString*)this;
+		return alsoThis->getValue();
+	}
+	else
+		return NULL;
+}
+int bCodeData::toInt()
+{
+	if(containerType == bType::Integral)
+	{
+		bCodeInt* alsoThis = (bCodeInt*)this;
+		return alsoThis->getValue();
+	}
+	else
+		return 0;
 }

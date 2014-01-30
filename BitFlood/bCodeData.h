@@ -11,51 +11,38 @@
 
 #include <iostream>
 #include <map>
-#include <list>
+#include <vector>
+
+class bCodeDictionary;
+class bCodeInteger;
+class bCodeList;
+class bCodeString;
 
 using namespace std;
 
 enum bType
 {
-    d = 0,
-    i = 1,
-    s = 2,
-    l = 3
+    Dictionary = 0,
+    Integral = 1,
+    String = 2,
+    List = 3
 };
 
 class bCodeData
 {
-    
-    private:
-        bType containerType;
-    protected:
-        bCodeData();
-        ~bCodeData();
-    public:
-        static bCodeData* parse(string* torrent, unsigned int startIndex, unsigned int* endIndex);
-        
-};
-
-class bCodeDictionary : bCodeData
-{
 private:
+        
+protected:
+	bCodeData() {}
+	~bCodeData() {}
+		bType containerType;
 public:
-    bCodeData* operator[](std::string key) { return NULL; }
-};
-
-class bCodeList : bCodeData
-{
-    bCodeData* operator[](unsigned int index) { return NULL; }
-};
-
-class bCodeString : bCodeData
-{
-    std::string getValue();
-};
-
-class bCodeInt : bCodeData
-{
-    int getValue()
+	bCodeData* forKey(const char key[]);
+	bCodeData* atIndex(unsigned int index);
+	std::string toString();
+	int toInt();
+	
+	static bCodeData* parse(string* torrent, unsigned int startIndex, unsigned int* endIndex);
 };
 
 #endif /* defined(__BitFlood__bCodeData__) */

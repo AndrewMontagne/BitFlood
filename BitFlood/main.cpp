@@ -11,6 +11,10 @@ using namespace std;
 #include <iostream>
 #include <map>
 #include "bCodeData.h"
+#include "bCodeString.h"
+#include "bCodeDict.h"
+#include "bCodeInt.h"
+#include "bCodeList.h"
 
 int main(int argc, const char * argv[])
 {
@@ -37,7 +41,10 @@ int main(int argc, const char * argv[])
     delete buffer;
     fclose(torFile);
     
-    int end = 0;
-    
-    bCodeData *parsedTorrent = bCodeData::parse(&torrent, 0, &end);
+    bCodeData *parsedTorrent = bCodeData::parse(&torrent, 0, NULL);
+	
+	string announce = parsedTorrent->forKey("announce")->toString();
+	string filename = parsedTorrent->forKey("info")->forKey("name")->toString();
+	int length = parsedTorrent->forKey("info")->forKey("length")->toInt();
+	cout <<  "Torrent links to file '" << filename << "' which is " << length << " bytes in size" << endl;
 }

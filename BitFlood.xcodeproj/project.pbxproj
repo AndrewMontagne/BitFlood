@@ -26,6 +26,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C4075774189AF73A00A40B6E /* bCodeDict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bCodeDict.h; sourceTree = "<group>"; };
+		C4075775189AF76800A40B6E /* bCodeList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bCodeList.h; sourceTree = "<group>"; };
+		C4075776189AF80F00A40B6E /* bCodeString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bCodeString.h; sourceTree = "<group>"; };
+		C4075777189AF82C00A40B6E /* bCodeInt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bCodeInt.h; sourceTree = "<group>"; };
 		C49ED5BD189A822E00FB4DD8 /* BitFlood */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BitFlood; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49ED5C0189A822E00FB4DD8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C49ED5C2189A822E00FB4DD8 /* BitFlood.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = BitFlood.1; sourceTree = "<group>"; };
@@ -45,6 +49,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4075773189AF5F300A40B6E /* bencoding */ = {
+			isa = PBXGroup;
+			children = (
+				C49ED5CD189AAAD200FB4DD8 /* bCodeData.cpp */,
+				C49ED5CE189AAAD200FB4DD8 /* bCodeData.h */,
+				C4075774189AF73A00A40B6E /* bCodeDict.h */,
+				C4075775189AF76800A40B6E /* bCodeList.h */,
+				C4075776189AF80F00A40B6E /* bCodeString.h */,
+				C4075777189AF82C00A40B6E /* bCodeInt.h */,
+			);
+			name = bencoding;
+			sourceTree = "<group>";
+		};
 		C49ED5B4189A822E00FB4DD8 = {
 			isa = PBXGroup;
 			children = (
@@ -64,11 +81,10 @@
 		C49ED5BF189A822E00FB4DD8 /* BitFlood */ = {
 			isa = PBXGroup;
 			children = (
+				C4075773189AF5F300A40B6E /* bencoding */,
 				C49ED5C0189A822E00FB4DD8 /* main.cpp */,
 				C49ED5C9189A83AD00FB4DD8 /* text.txt.torrent */,
 				C49ED5C2189A822E00FB4DD8 /* BitFlood.1 */,
-				C49ED5CD189AAAD200FB4DD8 /* bCodeData.cpp */,
-				C49ED5CE189AAAD200FB4DD8 /* bCodeData.h */,
 			);
 			path = BitFlood;
 			sourceTree = "<group>";
