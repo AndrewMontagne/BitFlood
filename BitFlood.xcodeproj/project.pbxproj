@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C49ED5C1189A822E00FB4DD8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49ED5C0189A822E00FB4DD8 /* main.cpp */; };
 		C49ED5C3189A822E00FB4DD8 /* BitFlood.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C49ED5C2189A822E00FB4DD8 /* BitFlood.1 */; };
+		C49ED5CF189AAAD200FB4DD8 /* bCodeData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49ED5CD189AAAD200FB4DD8 /* bCodeData.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +30,8 @@
 		C49ED5C0189A822E00FB4DD8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C49ED5C2189A822E00FB4DD8 /* BitFlood.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = BitFlood.1; sourceTree = "<group>"; };
 		C49ED5C9189A83AD00FB4DD8 /* text.txt.torrent */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = text.txt.torrent; sourceTree = "<group>"; };
+		C49ED5CD189AAAD200FB4DD8 /* bCodeData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bCodeData.cpp; sourceTree = "<group>"; };
+		C49ED5CE189AAAD200FB4DD8 /* bCodeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bCodeData.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,8 @@
 				C49ED5C0189A822E00FB4DD8 /* main.cpp */,
 				C49ED5C9189A83AD00FB4DD8 /* text.txt.torrent */,
 				C49ED5C2189A822E00FB4DD8 /* BitFlood.1 */,
+				C49ED5CD189AAAD200FB4DD8 /* bCodeData.cpp */,
+				C49ED5CE189AAAD200FB4DD8 /* bCodeData.h */,
 			);
 			path = BitFlood;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C49ED5C1189A822E00FB4DD8 /* main.cpp in Sources */,
+				C49ED5CF189AAAD200FB4DD8 /* bCodeData.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +233,7 @@
 				C49ED5C8189A822E00FB4DD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
