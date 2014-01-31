@@ -11,7 +11,7 @@
 
 #include "bCodeData.h"
 
-class bCodeList : bCodeData
+class bCodeList : public bCodeData
 {
 	friend class bCodeData;
 private:
@@ -22,6 +22,8 @@ private:
 	}
 	vector<bCodeData*>* values;
 public:
+    ~bCodeList() { delete values; }
+    unsigned int length() { return (unsigned int)values->size(); };
     bCodeData* at(unsigned int index) { return values->at(index); }
 };
 

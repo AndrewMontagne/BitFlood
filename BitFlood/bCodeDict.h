@@ -17,7 +17,7 @@ enum bType;
 #include "bCodeData.h"
 #include <map>
 
-class bCodeDictionary : bCodeData
+class bCodeDictionary : public bCodeData
 {
 	friend class bCodeData;
 private:
@@ -28,9 +28,9 @@ private:
 	}
 	map<string, bCodeData*>* values;
 public:
-	bCodeData* at(string* key) { return this->at(key); }
-    bCodeData* at(string key) { return values->at(key); }
-	bCodeData* at(const char key) { return this->at(string(&key)); };
+    ~bCodeDictionary() { delete values; };
+    bool contains(const char key[]) { return !(values->find(string(key)) == values->end()); }
+	bCodeData* at(const char key[]) { return values->at(string(key)); };
 };
 
 #endif

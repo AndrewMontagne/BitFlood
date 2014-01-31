@@ -22,20 +22,27 @@ bCodeData* bCodeData::parse(string *torrent, unsigned int startIndex, unsigned i
         case 'i':
         {
             int value = 0;
-			
-            while(torrent->at(i) != 'e')
+			bool isNegative = false;
+            char current = 0;
+            
+            while((current = torrent->at(i)) != 'e')
             {
-                value *= 10;
-                value -= 0x30 - (int)torrent->at(i);
+                if(current == '-')
+                    isNegative = true;
+                else
+                {
+                    value *= 10;
+                    value -= '0' - current;
+                }
                 i++;
             }
 			
 			if(endIndex != NULL)
 				*endIndex = i;
 			
-            return new bCodeInt(value);
+            return new bCodeInt(isNegative ? -value : value);
         }
-			break;
+        break;
             
         case 'l':
         {
@@ -53,7 +60,7 @@ bCodeData* bCodeData::parse(string *torrent, unsigned int startIndex, unsigned i
 			
             return new bCodeList(values);
         }
-			break;
+        break;
             
         case 'd':
         {
@@ -75,7 +82,7 @@ bCodeData* bCodeData::parse(string *torrent, unsigned int startIndex, unsigned i
 			
             return new bCodeDictionary(values);
         }
-			break;
+        break;
             
         case '0':
         case '1':
@@ -90,11 +97,12 @@ bCodeData* bCodeData::parse(string *torrent, unsigned int startIndex, unsigned i
         {
             i--;
             unsigned int length = 0;
+            char current = 0;
             
-            while(torrent->at(i) != ':')
+            while((current = torrent->at(i)) != ':')
             {
                 length *= 10;
-                length -= 0x30 - (int)torrent->at(i);
+                length -= '0' - current;
                 i++;
             }
             i++;
@@ -104,13 +112,13 @@ bCodeData* bCodeData::parse(string *torrent, unsigned int startIndex, unsigned i
 			
             return new bCodeString(string(torrent->substr(i,length)));
         }
-			break;
+        break;
             
         default:
         {
             throw new exception();
         }
-			break;
+        break;
     }
 }
 

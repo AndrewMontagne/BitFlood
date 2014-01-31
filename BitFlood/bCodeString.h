@@ -9,7 +9,7 @@
 #ifndef BitFlood_bCodeString_h
 #define BitFlood_bCodeString_h
 
-class bCodeString : bCodeData
+class bCodeString : public bCodeData
 {
 	friend class bCodeData;
 private:

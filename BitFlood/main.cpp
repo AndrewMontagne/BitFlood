@@ -18,6 +18,8 @@ using namespace std;
 
 int main(int argc, const char * argv[])
 {
+    while(true)
+    {
     FILE *torFile = fopen("text.txt.torrent", "r");
     
     if(torFile == NULL)
@@ -38,13 +40,31 @@ int main(int argc, const char * argv[])
         torrent += part;
     }
     
-    delete buffer;
+    delete[] buffer;
     fclose(torFile);
     
-    bCodeData *parsedTorrent = bCodeData::parse(&torrent, 0, NULL);
+    bCodeDictionary* parsedTorrent = (bCodeDictionary*)bCodeData::parse(&torrent, 0, NULL);
 	
-	string announce = parsedTorrent->forKey("announce")->toString();
 	string filename = parsedTorrent->forKey("info")->forKey("name")->toString();
 	int length = parsedTorrent->forKey("info")->forKey("length")->toInt();
+    
+    vector<string> trackers = vector<string>();
+    if(parsedTorrent->contains("announce-list"))
+    {
+        bCodeList* announceList = (bCodeList*)parsedTorrent->forKey("announce-list");
+        unsigned int count = announceList->length();
+        for(unsigned int i = 0; i < count; i++)
+        {
+            trackers.push_back(announceList->at(i)->atIndex(0)->toString());
+        }
+    }
+    else
+    {
+        trackers.push_back(parsedTorrent->forKey("announce")->toString());
+    }
+    
+    delete parsedTorrent;
+    
 	cout <<  "Torrent links to file '" << filename << "' which is " << length << " bytes in size" << endl;
+    }
 }
